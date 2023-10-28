@@ -9,3 +9,4 @@
 - dmc analityczny <br />
 - dmc analityczny rozmyty <br />
 - sl <br />
+- funcje podziału i pobieranie modelu dla regulatorów <br />

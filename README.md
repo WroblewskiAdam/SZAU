@@ -4,9 +4,9 @@
 - punkt pracy <br />
 - linearyzacja w 2/3/4/5 punktach -> równania modeli lokalnych <br />
 - spiąć ze sobą całość, drobne zmiany w regulatorach gdy powyższe będą zrobione <br />
+- badania <br />
 # Gotowe:
-- działanie ciągłego i dyskretnego nieliniowych
-- obiekt dyskretny nieliniowy <br />
+- działanie ciągłego i dyskretnego nieliniowych <br />
 - dmc analityczny <br />
 - dmc analityczny rozmyty <br />
 - sl <br />

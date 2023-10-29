@@ -1,10 +1,11 @@
 ## Szau-projekt-1
 # TODOSY:
 - linearyzacje w punkcie <br />
-- uruchomienie ciągłego obiektu <br />
+- punkt pracy <br />
 - linearyzacja w 2/3/4/5 punktach -> równania modeli lokalnych <br />
 - spiąć ze sobą całość, drobne zmiany w regulatorach gdy powyższe będą zrobione <br />
 # Gotowe:
+- działanie ciągłego i dyskretnego nieliniowych
 - obiekt dyskretny nieliniowy <br />
 - dmc analityczny <br />
 - dmc analityczny rozmyty <br />

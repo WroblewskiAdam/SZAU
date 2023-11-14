@@ -16,19 +16,21 @@ h1(1) = h1_0;
 h2 = zeros(t_sim,1);
 h2(1) = h2_0;
 
+T = 0.3;
+
 for k=2:t_sim
     if lin == 1
         % zlinearyzowany TODO
 		h1_plin = 0.1;
 		h2_plin = 0.1;
-		h1(k) = ((F1 + Fd - alfa1*sqrt(h1_plin))/(2*C1*h1_plin) + ((-F1 - Fd)/(2*C1*(h1_plin^2))  + (alfa1 / (4*C1*h1_plin*sqrt(h1_plin))) * (h1(k-1)- h1_plin))) * 1 + h1(k-1);
-		h1(k) = ((alfa1*sqrt(h1_plin) + alfa2 * sqrt(h2_plin))/(3*C2*h2_plin^2)  - ((3*alfa1 - 3*alfa2)/(6*C2*h2_plin^2 * sqrt(h2_plin))) * (h2(k-1) - h2_plin)) * 1 + h2(k-1);
+		h1(k) = ((F1 + Fd - alfa1*sqrt(h1_plin))/(2*C1*h1_plin) + ((-F1 - Fd)/(2*C1*(h1_plin^2))  + (alfa1 / (4*C1*h1_plin*sqrt(h1_plin))) * (h1(k-1)- h1_plin))) * T + h1(k-1);
+		h1(k) = ((alfa1*sqrt(h1_plin) + alfa2 * sqrt(h2_plin))/(3*C2*h2_plin^2)  - ((3*alfa1 - 3*alfa2)/(6*C2*h2_plin^2 * sqrt(h2_plin))) * (h2(k-1) - h2_plin)) * T + h2(k-1);
     else
         % nieliniowy
-        h1(k) = ((F1 + Fd - alfa2*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * 1 + h1(k-1); % GŁUPIE PZYTANIE CZEMU T  = 1 na stałe 
-        h2(k) = ((alfa1*sqrt(h1(k-1)) - alfa2*sqrt(h2(k-1))) / (3*C2*(h2(k-1)^2)))  * 1 + h2(k-1);
+        h1(k) = ((F1 + Fd - alfa2*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * T + h1(k-1); % GŁUPIE PZYTANIE CZEMU T  = 1 na stałe 
+        h2(k) = ((alfa1*sqrt(h1(k-1)) - alfa2*sqrt(h2(k-1))) / (3*C2*(h2(k-1)^2)))  * T + h2(k-1);
     end
 end
-h1_out = h1(2:end);
-h2_out = h2(2:end);
+h1_out = h1(1:end);
+h2_out = h2(1:end);
 end

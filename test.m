@@ -27,8 +27,10 @@ h2_pp = 9.9225;
 [h1_c_zlin, h2_c_zlin, t_zlin] = obiekt_ciagly(1, Ts, h1_pp, h2_pp);
 
 
-% % %test dyskretne
-% [h1_d, h2_d] = obiekt_dyskretny(lin, Ts, 4, 5, F1in, tau, 51, Fd);
+% %test dyskretne
+[h1_d, h2_d] = obiekt_dyskretny(0, Ts, h1_pp, h2_pp, F1_in);
+[h1_d_zlin, h2_d_zlin] = obiekt_dyskretny(1, Ts, h1_pp, h2_pp, F1_in);
+
 
 
 figure(1)
@@ -36,15 +38,40 @@ hold on
 grid on
 plot(t,h1_c);
 plot(t,h2_c)
-plot(t_zlin,h1_c_zlin);
-plot(t_zlin,h2_c_zlin);
+stairs(h1_d);
+stairs(h2_d);
 title('Punkt pracy ciągły');
-legend('h1', 'h2', 'h1_zlin', 'h2_zlin');
+legend('h1', 'h2', 'h1_dyskr', 'h2_dyskr');
+% legend('h1_dyskr', 'h2_dyskr');
 
-disp(h1_c(end));
-disp(h2_c(end));
+figure(2)
+hold on
+grid on
+plot(t_zlin,h1_c_zlin);
+plot(t_zlin,h2_c_zlin)
+stairs(h1_d_zlin);
+stairs(h2_d_zlin);
+title('Punkt pracy ciągły');
+legend('h1', 'h2', 'h1_dyskr', 'h2_dyskr');
+% legend('h1_dyskr', 'h2_dyskr');
 
 
+
+
+% figure(1)
+% hold on
+% grid on
+% plot(t,h1_c);
+% plot(t,h2_c)
+% plot(t_zlin,h1_c_zlin);
+% plot(t_zlin,h2_c_zlin);
+% title('Punkt pracy ciągły');
+% legend('h1', 'h2', 'h1_zlin', 'h2_zlin');
+% 
+% disp(h1_c(end));
+% disp(h2_c(end));
+% 
+% 
 % figure(2)
 % hold on
 % grid on

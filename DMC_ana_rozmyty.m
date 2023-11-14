@@ -1,4 +1,4 @@
-function [E, E_mod, y, yzad, u]=DMC_ana_rozmyty(wektor, liczba_regulatorow, typ_funkcji, yzad, Ts)
+function [E, y, yzad, u]=DMC_ana_rozmyty(wektor, liczba_regulatorow, typ_funkcji, yzad, Ts)
 %Definicja horyzontów i parametrów
 % wektor = [N1, Nu1, lambda1, N2, Nu2, lambda2, ...];
 N(1:length(wektor)/3) = wektor(1:3:length(wektor));
@@ -12,16 +12,26 @@ u_max = 90;
 y_min = 0;
 y_max = 1.3;
 functions = funkcje_podzialu(liczba_regulatorow, typ_funkcji, y_min, y_max);
-D = 700;
+
+D = 500;
 start= D+1;
 E = 0;
-E_mod = 0;
 
-%deklaracja początkowych wektorów
-u = 34.3 * ones(Ts, 1);
-ya = 3.0 * ones(Ts, 1);
-yb = 1.12 * ones(Ts, 1);
+%stałe
+C1 = 0.75;
+C2 = 0.55;
+alfa1 = 20;
+alfa2 = 20;
+tau = 50;
+Fd = 11;
+T = 1;
+
+%deklaracja początkowych wektorów -> punkt pracy
+u = 52 * ones(Ts , 1);
+h1 = 9.9221 * ones(Ts , 1);
+h2 = 9.9225 * ones(Ts , 1);
 dUp = zeros(D-1, 1);
+
 
 %Obliczenie części macierzy DMC
 for i=1:liczba_regulatorow
@@ -73,11 +83,11 @@ end
 
 for k=start:Ts
     %symulacja obiektu
-    [yb_sim, ya_sim] = wywolanie_symulacji(1, u(k-1), ya(k-1), yb(k-1));
-    ya(k) = ya_sim;
-    yb(k) = yb_sim;
+    F1 = u(k-tau);
+    h1(k) = ((F1 + Fd - alfa2*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * T + h1(k-1); 
+    h2(k) = ((alfa1*sqrt(h1(k-1)) - alfa2*sqrt(h2(k-1))) / (3*C2*(h2(k-1)^2)))  * T + h2(k-1);
 
-    ek=yzad(k)-yb(k);
+    ek=yzad(k)-h2(k);
 
     %Obliczenie dU_p
     for d=1:(D-1)
@@ -87,7 +97,7 @@ for k=start:Ts
     %Rozmywanie i bliczenie sterowania
     sum_ster = 0;
     for i=1:liczba_regulatorow
-        sum_ster = sum_ster + functions{i}(yb(k));
+        sum_ster = sum_ster + functions{i}(h2(k));
     end
 
     dU = cell(1,liczba_regulatorow);
@@ -106,7 +116,7 @@ for k=start:Ts
     
     U=0;
     for i =1:liczba_regulatorow
-        U = U + (functions{i}(yb(k))/sum_ster)*dU{i}; 
+        U = U + (functions{i}(h2(k))/sum_ster)*dU{i}; 
     end
 
     u(k) = u(k-1) + U;
@@ -117,13 +127,9 @@ for k=start:Ts
         u(k) = u_min;
     end
     
-    E = E + (yzad(k)-yb(k))^2;
-    E_mod = E_mod + abs(yzad(k)-yb(k));
+    E = E + (yzad(k)-h2(k))^2;
 end
 %wyniki
-% yzad = yzad(start:Ts);
-% y = yb(start:Ts);
-% u = u(start:Ts);
-%wyniki
-y = yb;
+y = h2(start:end);
+u = u(start:end);
 end

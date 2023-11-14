@@ -1,23 +1,30 @@
 function [h1_out, h2_out] = obiekt_dyskretny(lin, t_sim, h1_0, h2_0, F1_in)
 %stałe
 global C1 C2 alfa1 alfa2
-
+start = 2;
 
 %startowe h1, h2
-h1 = zeros(t_sim,1);
+h1 = zeros(start+t_sim,1);
 h1(1) = h1_0;
-h2 = zeros(t_sim,1);
+h2 = zeros(start+t_sim,1);
 h2(1) = h2_0;
 
 T = 1;
 tau = 50;
 Fd = 11;
 
-for k=2:t_sim
-   if k - tau < 1
+for k=start:start+t_sim
+   if k - tau < 1 || length(F1_in) < 51
 	   F1 = F1_in(1);
    else
 	   F1 = F1_in(k-tau);
+   end
+
+   if h1(k)<= 0
+       h1(k) = 0.0001;
+   end
+   if h2(k)<= 0
+       h2(k) = 0.0001;
    end
 	
 	if lin == 1

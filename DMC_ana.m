@@ -3,17 +3,26 @@ function [E, y, yzad, u] = DMC_ana(wektor, yzad, Ts)
 N = round(wektor(1));
 N_u = round(wektor(2));
 lambda = wektor(3);
-D = 700;
+D = 500;
 start= D+1;
 E = 0;
 
-%model
-s = pobranie_modelu(40, 34.5);
+%stałe
+C1 = 0.75;
+C2 = 0.55;
+alfa1 = 20;
+alfa2 = 20;
+tau = 50;
+Fd = 11;
+T = 1;
 
-%deklaracja początkowych wektorów
-u = 34.3 * ones(Ts , 1);
-ya = 3.0 * ones(Ts , 1);
-yb = 1.12 * ones(Ts , 1);
+%model
+s = pobranie_modelu(55, 52);
+
+%deklaracja początkowych wektorów -> punkt pracy
+u = 52 * ones(Ts , 1);
+h1 = 9.9221 * ones(Ts , 1);
+h2 = 9.9225 * ones(Ts , 1);
 dUp = zeros(D-1, 1);
 
 %Obliczenie części macierzy DMC
@@ -40,32 +49,25 @@ Ke=sum(K(1,:));
 
 for k=start:Ts
     %symulacja obiektu
-    [yb_sim, ya_sim] = wywolanie_symulacji(1, u(k-1), ya(k-1), yb(k-1));
-    ya(k) = ya_sim;
-    yb(k) = yb_sim;
+    F1 = u(k-tau);
+    h1(k) = ((F1 + Fd - alfa2*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * T + h1(k-1); 
+    h2(k) = ((alfa1*sqrt(h1(k-1)) - alfa2*sqrt(h2(k-1))) / (3*C2*(h2(k-1)^2)))  * T + h2(k-1);
 
     %Obliczenie dUp
     for d=1:(D-1)
         dUp(d) = u(k-d) - u(k-d-1);
     end
 
-    ek=yzad(k)-yb(k);
+    ek=yzad(k)-h2(k);
     
     %Obliczenie sterowania
     dU=Ke*ek-Ku*dUp;
     u(k) = u(k-1) + dU(1);
 
-    % ograniczenia
-    % if u(k) > 70
-    %    u(k) = 70;
-    % end
-    % if u(k) < 0
-    %    u(k) = 0;
-    % end   
-    E = E + (yzad(k)-yb(k))^2; 
+    E = E + (yzad(k)-h2(k))^2; 
 end
 %wyniki
-yzad = yzad(start:Ts);
-y = yb(start:Ts);
-u = u(start:Ts);
+y = h2(start:end);
+u = u(start:end);
+yzad = yzad(start:end);
 end

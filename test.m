@@ -55,9 +55,6 @@ title('Punkt pracy ciągły');
 legend('h1', 'h2', 'h1_dyskr', 'h2_dyskr');
 % legend('h1_dyskr', 'h2_dyskr');
 
-
-
-
 % figure(1)
 % hold on
 % grid on
@@ -79,3 +76,32 @@ legend('h1', 'h2', 'h1_dyskr', 'h2_dyskr');
 % plot(h2_d)
 % title('Punkt pracy dyskretny')
 % legend('h1', 'h2');
+%% DMC
+global F1_in C1 C2 alfa1 alfa2 h1_pp h2_pp
+C1 = 0.75;
+C2 = 0.55;
+alfa1 = 20;
+alfa2 = 20;
+
+Ts = 3000;
+wektor = [500, 250, 1];
+
+yzad(1:550)= 9.9225;
+yzad(551:1000)= 12;
+yzad(1001:1500)= 8;
+yzad(1501:3000)= 10;
+[E, y, yzad, u] = DMC_ana(wektor, yzad, Ts);
+
+figure(1);
+stairs(y);
+hold on;
+grid on;
+stairs(yzad);
+legend('h2', 'h zad')
+title('wyjscie')
+
+figure(2);
+stairs(u);
+hold on;
+grid on;
+title('sterowanie')

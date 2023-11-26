@@ -11,9 +11,8 @@ Fd = 11;
 h1_pp = 9.9211;
 h2_pp = 9.9225;
 F1_in(1:100) = 52;
-
 % skok wartości
-Ts = 2000;
+Ts = 1000;
 F1_in(101:Ts) = 50;
 
 [h1_c, h2_c, t] = obiekt_ciagly(0, Ts, h1_pp, h2_pp);
@@ -43,7 +42,7 @@ stairs(h2_d_zlin);
 title('Liniowe');
 legend('h1_c', 'h1_d', 'h2_c', 'h2_d');
 
-%% liniowy vs nieliniowy
+% liniowy vs nieliniowy
 figure(3)
 hold on
 grid on
@@ -53,8 +52,10 @@ stairs(h2_d);
 stairs(h2_d_zlin)
 legend('h1_l','h1_n', 'h2_l','h2_n');
 
-F1_in(1:0.5*Ts) = 38.5;
-F1_in(0.5*Ts+1:Ts) = 39;
+%seria skoków
+Ts = 1000;
+F1_in(1:100) = 52;
+F1_in(101:1100) = 27;
 [h1_d, h2_d] = obiekt_dyskretny(0, Ts, h1_pp, h2_pp, F1_in);
 [h1_d_zlin, h2_d_zlin] = obiekt_dyskretny(1, Ts, h1_pp, h2_pp, F1_in);
 figure(4)
@@ -64,9 +65,11 @@ stairs(h1_d);
 stairs(h1_d_zlin)
 stairs(h2_d);
 stairs(h2_d_zlin)
-legend('h1_l','h1_n', 'h2_l','h2_n');
+legend('h1 lin','h1 nlin', 'h2 lin','h2 nlin');
 
-F1_in(101:Ts) = 60;
+Ts = 1100;
+F1_in(1:100) = 52;
+F1_in(101:1100) = 77;
 [h1_d, h2_d] = obiekt_dyskretny(0, Ts, h1_pp, h2_pp, F1_in);
 [h1_d_zlin, h2_d_zlin] = obiekt_dyskretny(1, Ts, h1_pp, h2_pp, F1_in);
 figure(5)
@@ -76,33 +79,36 @@ stairs(h1_d);
 stairs(h1_d_zlin)
 stairs(h2_d);
 stairs(h2_d_zlin)
-legend('h1_l','h1_n', 'h2_l','h2_n');
+legend('h1 lin','h1 nlin', 'h2 lin','h2 nlin');
 
 %% DMC
 % zmiany wyjścia
-Ts = 3000;
-wektor = [400, 1, 0.01];
+Ts = 6000;
+wektor = [300, 1, 0.1];
 Fd(1:Ts) = 11;
 yzad(1:550)= 9.9225;
-yzad(551:1200)= 12.5;
-yzad(1001:1500)= 8;
-yzad(1501:3000)= 10;
+yzad(551:1000)= 12.5;
+yzad(1001:2000)= 8;
+yzad(2001:3000)= 10;
+yzad(3001:4500)= 4;
+yzad(4501:6000)= 15;
 [E, y, yzad, u] = DMC_ana(wektor, yzad, Ts, Fd);
+disp(E);
 
 figure(1);
 stairs(y);
 hold on;
 grid on;
 stairs(yzad);
-legend('h2', 'h2 zad')
-title('wyjscie')
+legend('h2', 'h2 zad', 'Location', 'SE')
+title('Wyjście')
 figure(2);
 stairs(u);
 hold on;
 grid on;
-title('sterowanie')
+title('Sterowanie')
 
-% zmiany zakłóceń
+%% zmiany zakłóceń
 yzad(1:Ts)= 9.9225;
 Fd(1:1000)= 11;
 Fd(1001:2000)= 15;
@@ -113,11 +119,11 @@ figure(3);
 stairs(y);
 hold on;
 grid on;
-stairs(yzad);
-legend('h2', 'h2 zad')
-title('Zaklocone wyjscie')
+stairs(Fd);
+legend('h2', 'Fd')
+title('Zakłócenia wyjscie')
 figure(4);
 stairs(u);
 hold on;
 grid on;
-title('Zaklocone sterowanie')
+title('Zakłócenia sterowanie')

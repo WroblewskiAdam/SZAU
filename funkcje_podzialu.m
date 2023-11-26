@@ -15,14 +15,14 @@ function functions = funkcje_podzialu(liczba_regulatorow, function_type, val_min
     end
 
     %wykres
-    % x=val_min:0.01:val_max;
-    % figure(20)
-    % title("Funkcje przynależności")
-    % xlim([val_min val_max])
-    % hold on
-    % for i=1:1:liczba_regulatorow
-    %     plot(x, functions{i}(x))
-    % end
+    x=val_min:0.01:val_max;
+    figure(20)
+    title("Funkcje przynależności")
+    xlim([val_min val_max])
+    hold on
+    for i=1:1:liczba_regulatorow
+        plot(x, functions{i}(x))
+    end
     % print("Funkcje_1.png","-dpng","-r400")
 end
 

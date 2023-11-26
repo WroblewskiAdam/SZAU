@@ -151,24 +151,24 @@ yzad(4001:5000)= 7.5;
 % yzad(7001:8000)= 3.75;
 % yzad(8001:9000)= 3;
 % yzad(9001:10000)= 2.5;
-[E, y, yzad, u] = DMC_ana_rozmyty(wektor, 2, 'tr', yzad, Ts);
-wektor = [400, 1, 0.01];
-[Es, ys, yzads, us] = SL(wektor, 2, 'tr', yzad, Ts);
+[E, y, yzad, u] = DMC_ana_rozmyty(wektor,3, 'tr', yzad, Ts);
+% wektor = [400, 1, 0.01];
+% [Es, ys, yzads, us] = SL(wektor, 2, 'tr', yzad, Ts);
 
 figure(1);
-stairs(ys);
+% stairs(y);
 hold on;
 grid on;
 stairs(y);
 stairs(yzad);
-legend('h2 sl','h2 dmc', 'h zad')
+% legend('h2 sl','h2 dmc', 'h zad')
 title('wyjscie')
 
 figure(2);
-stairs(us);
+% stairs(us);
 hold on;
 grid on;
 stairs(u);
-legend('u sl','u dmc')
+% legend('u sl','u dmc')
 title('sterowanie')
 

@@ -2,17 +2,17 @@ function responses = pobranie_modelu_rozmyte(ilosc_obszarow)
     responses = cell(1, ilosc_obszarow);
 
     if ilosc_obszarow == 2
-        u_pp = [33.8, 52];
-        u = [34.8, 53];
+        u_pp = [41.5, 52.5];
+        u = [42, 53];
     elseif ilosc_obszarow == 3
-        u_pp = [27.8, 44.8, 56];
-        u = [28.8, 45.8, 57];
+        u_pp = [39.9, 45.8, 57];
+        u = [40.5, 46, 58];
     elseif ilosc_obszarow == 4
-        u_pp = [23.7, 38, 49, 58];
-        u = [24.7, 39, 50, 59];
+        u_pp = [39, 43, 49.3, 60.4];
+        u = [40, 44, 50, 61];
     elseif ilosc_obszarow == 5
-        u_pp = [20.6, 33.8, 43.8, 52, 60];
-        u = [21.6, 34.8, 44.8, 53, 61];
+        u_pp = [38.5, 41.5, 45.8, 52.5, 63];
+        u = [39, 42, 46, 53, 64];
     end
 
     figure(21)
@@ -22,6 +22,4 @@ function responses = pobranie_modelu_rozmyte(ilosc_obszarow)
        hold on
        stairs(responses{i})
     end
-    legend('obszar 1', 'obszar 2', 'obszar 3', 'obszar 4')
-    % print("DMC_roz_02.png","-dpng","-r400")
 end

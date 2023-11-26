@@ -1,4 +1,4 @@
-function [E, y, y2, yzad, u] = DMC_ana(wektor, yzad, Ts, Fd)
+function [E, y, yzad, u] = DMC_ana(wektor, yzad, Ts, Fd)
 %Definicja horyzontów i parametrów
 N = round(wektor(1));
 N_u = round(wektor(2));
@@ -66,8 +66,7 @@ for k=start:Ts
     E = E + (yzad(k)-h2(k))^2; 
 end
 %wyniki
-y = h2(start:end);
-y2 = h1(start:end);
-u = u(start:end);
-yzad = yzad(start:end);
+y = h2(1:end);
+u = u(1:end);
+yzad = yzad(1:end);
 end

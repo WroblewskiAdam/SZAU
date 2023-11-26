@@ -13,8 +13,8 @@ h2_pp = 9.9225;
 F1_in(1:100) = 52;
 
 % skok wartości
-Ts = 1000;
-F1_in(101:Ts) = 25;
+Ts = 2000;
+F1_in(101:Ts) = 50;
 
 [h1_c, h2_c, t] = obiekt_ciagly(0, Ts, h1_pp, h2_pp);
 [h1_c_zlin, h2_c_zlin, t_zlin] = obiekt_ciagly(1, Ts, h1_pp, h2_pp);
@@ -53,7 +53,8 @@ stairs(h2_d);
 stairs(h2_d_zlin)
 legend('h1_l','h1_n', 'h2_l','h2_n');
 
-F1_in(101:Ts) = 30;
+F1_in(1:0.5*Ts) = 38.5;
+F1_in(0.5*Ts+1:Ts) = 39;
 [h1_d, h2_d] = obiekt_dyskretny(0, Ts, h1_pp, h2_pp, F1_in);
 [h1_d_zlin, h2_d_zlin] = obiekt_dyskretny(1, Ts, h1_pp, h2_pp, F1_in);
 figure(4)
@@ -68,7 +69,7 @@ legend('h1_l','h1_n', 'h2_l','h2_n');
 F1_in(101:Ts) = 60;
 [h1_d, h2_d] = obiekt_dyskretny(0, Ts, h1_pp, h2_pp, F1_in);
 [h1_d_zlin, h2_d_zlin] = obiekt_dyskretny(1, Ts, h1_pp, h2_pp, F1_in);
-figure(4)
+figure(5)
 hold on
 grid on
 stairs(h1_d);
@@ -86,15 +87,14 @@ yzad(1:550)= 9.9225;
 yzad(551:1200)= 12.5;
 yzad(1001:1500)= 8;
 yzad(1501:3000)= 10;
-[E, y, h1, yzad, u] = DMC_ana(wektor, yzad, Ts, Fd);
+[E, y, yzad, u] = DMC_ana(wektor, yzad, Ts, Fd);
 
 figure(1);
 stairs(y);
 hold on;
 grid on;
 stairs(yzad);
-stairs(h1);
-legend('h2', 'h zad', 'h1')
+legend('h2', 'h2 zad')
 title('wyjscie')
 figure(2);
 stairs(u);
@@ -107,15 +107,14 @@ yzad(1:Ts)= 9.9225;
 Fd(1:1000)= 11;
 Fd(1001:2000)= 15;
 Fd(2001:Ts)= 5;
-[E, y, h1, yzad, u] = DMC_ana(wektor, yzad, Ts, Fd);
+[E, y, yzad, u] = DMC_ana(wektor, yzad, Ts, Fd);
 
 figure(3);
 stairs(y);
 hold on;
 grid on;
 stairs(yzad);
-stairs(h1);
-legend('h2', 'h zad', 'h1')
+legend('h2', 'h2 zad')
 title('Zaklocone wyjscie')
 figure(4);
 stairs(u);

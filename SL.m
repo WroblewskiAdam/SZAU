@@ -1,4 +1,4 @@
-function [E, y, yzad, u]=SL(wektor, liczba_obszarow, typ_funkcji, yzad, Ts)
+function [E, y, yzad, u]=SL(wektor, liczba_obszarow, typ_funkcji, yzad, Ts, Fd)
 %Definicja horyzontów i parametrów
 N = wektor(1);
 N_u = wektor(2);
@@ -19,7 +19,6 @@ C2 = 0.55;
 alfa1 = 20;
 alfa2 = 20;
 tau = 50;
-Fd = 11;
 T = 1;
 
 %deklaracja początkowych wektorów -> punkt pracy
@@ -31,10 +30,8 @@ dUp = zeros(D-1, 1);
 for k=start:Ts
     %symulacja obiektu
     F1 = u(k-tau);
-    h1(k) = ((F1 + Fd - alfa2*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * T + h1(k-1); 
+    h1(k) = ((F1 + Fd(k) - alfa2*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * T + h1(k-1); 
     h2(k) = ((alfa1*sqrt(h1(k-1)) - alfa2*sqrt(h2(k-1))) / (3*C2*(h2(k-1)^2)))  * T + h2(k-1);
-
-    % ek=yzad(k)-h2(k);
 
     %rozmywanie
     sum_ster = 0;

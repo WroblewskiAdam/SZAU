@@ -1,27 +1,24 @@
 function [step_response] = pobranie_modelu(u, u_pp)
-%stabilizowanie obiektu w pp
-upp = u_pp * ones(1500 , 1);
-% upp(51:1500) = u_pp;
-[h1, h2]=obiekt_dyskretny(0, 1500, 9.9225, 9.9221, upp);
-h1_0 = h1(end);
-h2_0 = h2(end);
+%stabilizowanie obiektu w pp i skok sterowania
+Ts = 3000;
+uu(1:0.5*Ts) = u_pp;
+uu(0.5*Ts+1:Ts) = u;
+[h1, h2]=obiekt_dyskretny(1, Ts, 9.9225, 9.9221, uu);
 
-%skok wartości zadanej
-uu = u_pp * ones(1500, 1);
-uu(2:1500) = u;
-[h1, h2]=obiekt_dyskretny(0, 1500, h1_0, h2_0, uu);
+h1_0 = h1(0.5*Ts);
+h2_0 = h2(0.5*Ts);
 
 %przeliczenie na skok jednostkowy
-step_response = zeros(length(h2),1);
-for i=1:length(h2)
-    step_response(i) = (h2(i) - h2_0) / ((u - u_pp));
+step_response_all = zeros(Ts,1);
+for i=1:Ts
+    step_response_all(i) = (h2(i) - h2_0) / ((u - u_pp));
 end
+step_response = step_response_all(0.5*Ts:Ts);
 
 % figure(30);
 % hold on;
 % grid on;
 % stairs(step_response);
 % title('Model', u)
-% % print("DMC_model.png","-dpng","-r400")
 end
 

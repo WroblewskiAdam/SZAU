@@ -12,8 +12,12 @@ function [h] = f_ciagla_zlin(t,h)
 	h1_plin = h1_pp;
 	h2_plin = h2_pp;
 
-	h1 = (-alfa1 * sqrt(h1_plin) + Fd + F1) / (2*C1*h1_plin) + ((alfa1*sqrt(h1_plin) - 2*Fd - 2*F1)/(4*C1*h1_plin^2)) * (h(1) - h1_plin) ;
-	h2 = (alfa1*sqrt(h(1)) - alfa2*sqrt(h2_plin)) / (3*C2*h2_plin^2) + ((3*alfa2*sqrt(h2_plin) - 4*alfa1*sqrt(h(1)))/(6*C2*h2_plin^3)) * (h(2) - h2_plin);
+	% h1 = (-alfa1 * sqrt(h1_plin) + Fd + F1) / (2*C1*h1_plin) + ((alfa1*sqrt(h1_plin) - 2*Fd - 2*F1)/(4*C1*h1_plin^2)) * (h(1) - h1_plin) ;
+	h1 = (-alfa1 * sqrt(h1_plin) + Fd + F1) / (2*C1*h1_plin) + ...
+        ((alfa1/(4*C1*h1_plin^(3/2))) - ((Fd+F1)/(2*C1*h1_plin^2))) * (h(1) - h1_plin);
+    h2 = (alfa1*sqrt(h1_plin) - alfa2*sqrt(h2_plin)) / (3*C2*h2_plin^2) + ...
+			((alfa1)/(6*C2*sqrt(h1_plin)*h2_plin^2))*(h(1) - h1_plin) + ...
+			((-2*alfa1*sqrt(h1_plin))/(3*C2*h2_plin^3) + (alfa2)/(2*C2*h2_plin^(5/2)))*(h(2) - h2_plin);
 	h = [h1;h2];
 end
 

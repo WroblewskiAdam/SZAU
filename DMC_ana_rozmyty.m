@@ -8,12 +8,12 @@ lambda(1:length(wektor)/3) = wektor(3:3:length(wektor));
 s = pobranie_modelu_rozmyte(liczba_regulatorow);
 M = cell(1,liczba_regulatorow);
 u_min = 0;
-u_max = 90;
+u_max = 200;
 y_min = 0;
-y_max = 1.3;
+y_max = 15;
 functions = funkcje_podzialu(liczba_regulatorow, typ_funkcji, y_min, y_max);
 
-D = 500;
+D = 600;
 start= D+1;
 E = 0;
 
@@ -111,8 +111,6 @@ for k=start:Ts
         end
 
     end
-
-
     
     U=0;
     for i =1:liczba_regulatorow
@@ -130,6 +128,6 @@ for k=start:Ts
     E = E + (yzad(k)-h2(k))^2;
 end
 %wyniki
-y = h2(start:end);
-u = u(start:end);
+y = h2(1:end);
+u = u(1:end);
 end

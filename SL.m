@@ -1,41 +1,51 @@
-function [E, E_mod, y, yzad, u]=SL(wektor, liczba_obszarow, typ_funkcji, yzad, Ts)
+function [E, y, yzad, u]=SL(wektor, liczba_obszarow, typ_funkcji, yzad, Ts)
 %Definicja horyzontów i parametrów
 N = wektor(1);
 N_u = wektor(2);
 lambda = wektor(3);
 u_min = 0;
-u_max = 90;
+u_max = 200;
 y_min = 0;
-y_max = 1.3;
+y_max = 15;
 s = pobranie_modelu_rozmyte(liczba_obszarow);
 functions = funkcje_podzialu(liczba_obszarow, typ_funkcji, y_min, y_max);
-D = 700;
+D = 600;
 start= D+1;
 E = 0;
-E_mod = 0;
 
-%deklaracja początkowych wektorów
-u = 34.3 * ones(Ts, 1);
-ya = 3.0 * ones(Ts, 1);
-yb = 1.12 * ones(Ts, 1);
+%stałe
+C1 = 0.75;
+C2 = 0.55;
+alfa1 = 20;
+alfa2 = 20;
+tau = 50;
+Fd = 11;
+T = 1;
+
+%deklaracja początkowych wektorów -> punkt pracy
+u = 52 * ones(Ts , 1);
+h1 = 9.9221 * ones(Ts , 1);
+h2 = 9.9225 * ones(Ts , 1);
 dUp = zeros(D-1, 1);
 
 for k=start:Ts
     %symulacja obiektu
-    [yb_sim, ya_sim] = wywolanie_symulacji(1, u(k-1), ya(k-1), yb(k-1));
-    ya(k) = ya_sim;
-    yb(k) = yb_sim;
+    F1 = u(k-tau);
+    h1(k) = ((F1 + Fd - alfa2*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * T + h1(k-1); 
+    h2(k) = ((alfa1*sqrt(h1(k-1)) - alfa2*sqrt(h2(k-1))) / (3*C2*(h2(k-1)^2)))  * T + h2(k-1);
+
+    % ek=yzad(k)-h2(k);
 
     %rozmywanie
     sum_ster = 0;
     for i=1:liczba_obszarow
-        sum_ster = sum_ster + functions{i}(yb(k));
+        sum_ster = sum_ster + functions{i}(h2(k));
     end
     
     s_j = zeros(1, D);
     for j=1:D
         for i=1:liczba_obszarow
-            s_j(j) = s_j(j) + (functions{i}(yb(k))/sum_ster)*s{i}(j);
+            s_j(j) = s_j(j) + (functions{i}(h2(k))/sum_ster)*s{i}(j);
         end
     end
     
@@ -74,7 +84,7 @@ for k=start:Ts
     end
 
     %Obliczenie sterowania
-    Y = ones(N, 1) * yb(k);
+    Y = ones(N, 1) * h2(k);
     Yzad = ones(N, 1) * yzad(k);
     Y0 =  M_pk * dUp + Y;
     L = lambda*eye(N_u);
@@ -93,10 +103,9 @@ for k=start:Ts
         u(k) = u_min;
     end
 
-    E = E + (yzad(k)-yb(k))^2;
-    E_mod = E_mod + abs(yzad(k)-yb(k));
+    E = E + (yzad(k)-h2(k))^2;
 
 end
 %wyniki
-y = yb;
+y = h2;
 end

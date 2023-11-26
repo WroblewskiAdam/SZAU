@@ -1,14 +1,13 @@
 %cha-ka statyczna
 % stałe
-global C1 C2 alfa1 alfa2
+global C1 C2 alfa1 alfa2 F1_in
 C1 = 0.75;
 C2 = 0.55;
 alfa1 = 20;
 alfa2 = 20;
 
-
-Y = 0;
-U = 0;
+Y = 9;
+U = 20;
 stat = [];
 stat2 = [];
 i = 1;

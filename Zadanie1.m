@@ -85,13 +85,14 @@ legend('h1 lin','h1 nlin', 'h2 lin','h2 nlin');
 % zmiany wyjścia
 Ts = 6000;
 wektor = [300, 1, 0.1];
+Ts = 7500;
 Fd(1:Ts) = 11;
-yzad(1:550)= 9.9225;
-yzad(551:1000)= 12.5;
-yzad(1001:2000)= 8;
-yzad(2001:3000)= 10;
-yzad(3001:4500)= 4;
-yzad(4501:6000)= 15;
+yzad(1:500)= 9.9225;
+yzad(501:1500)= 12.5;
+yzad(1501:2500)= 8;
+yzad(2501:3500)= 10;
+yzad(3501:6000)= 5;
+yzad(6001:7500)= 14;
 [E, y, yzad, u] = DMC_ana(wektor, yzad, Ts, Fd);
 disp(E);
 

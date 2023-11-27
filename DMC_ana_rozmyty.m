@@ -83,7 +83,7 @@ end
 for k=start:Ts
     %symulacja obiektu
     F1 = u(k-tau);
-    h1(k) = ((F1 + Fd(k) - alfa2*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * T + h1(k-1); 
+    h1(k) = ((F1 + Fd(k) - alfa1*sqrt(h1(k-1)))/(2*C1*h1(k-1))) * T + h1(k-1); 
     h2(k) = ((alfa1*sqrt(h1(k-1)) - alfa2*sqrt(h2(k-1))) / (3*C2*(h2(k-1)^2)))  * T + h2(k-1);
 
     ek=yzad(k)-h2(k);

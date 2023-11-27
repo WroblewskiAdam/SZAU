@@ -1,4 +1,4 @@
-liczba_obszarow = 3;
+liczba_obszarow = 4;
 punkty_pracy = {[5,10, 5,10],[3.75,7.5,11.25, 3.75,7.5,11.25],[3,6,9,12, 3,6,9,12],[2.5,5,7.5,10,12.48, 2.5,5,7.5,10,12.5]};
 punkty_pracy_lokalne = punkty_pracy{liczba_obszarow-1};
 h1_pp_roz = punkty_pracy_lokalne(1:liczba_obszarow);
@@ -22,7 +22,7 @@ h2_pp_start = 9.9225;
 
 %skok sterowania
 Ts = 30000;
-F1_in(10001:Ts) = 52;
+F1_in(10001:Ts) = 54;
 
 % obiekt dyskretny nlin i lin
 [h1, h2] = obiekt_dyskretny(0, Ts, h1_pp_start, h2_pp_start, F1_in);
@@ -48,12 +48,12 @@ for k=2:Ts
 	       F1 = F1_in(k-tau);
 
         end
-        % if h1_lok_prew(i) <= 0
-        %     h1_lok_prew(i) = 0;
-        % end
-        % if h2_lok_prew(i) <= 0
-        %     h2_lok_prew(i) = 0;
-        % end
+        if h1_lok_prew(i) <= 0
+            h1_lok_prew(i) = 0;
+        end
+        if h2_lok_prew(i) <= 0
+            h2_lok_prew(i) = 0;
+        end
 
         h1_plin = h1_pp_roz(i);
         h1_lok(i) = (-alfa1 * sqrt(h1_plin) + Fd + F1) / (2*C1*h1_plin) + ...

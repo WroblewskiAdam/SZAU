@@ -22,4 +22,5 @@ function responses = pobranie_modelu_rozmyte(ilosc_obszarow)
        hold on
        stairs(responses{i})
     end
+    print("Odpowiedzi_SL.png","-dpng","-r400")
 end

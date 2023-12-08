@@ -19,7 +19,7 @@ title('Charakterystyka statyczna' )
 xlabel('u')
 ylabel('y')
 grid on;
-
+% print("char_stat","-dpng","-r800")
 
 %% ZAD1 - symulacja procesu
 close all
@@ -72,34 +72,39 @@ clear
 load("dane_uczace.mat")
 load("dane_weryfikujace.mat")
 figure(1)
+subplot(2,1,1)
 plot(u_ucz)
 grid on
 xlabel('k')
 ylabel('u')
 title('Dane uczące - u')
 
-figure(2)
+subplot(2,1,2)
 plot(y_ucz)
 grid on
 xlabel('k')
 ylabel('y')
 title('Dane uczące - y')
+print("dane_uczace","-dpng","-r800")
 
-figure(3)
+
+figure(2)
+subplot(2,1,1)
 plot(u_wer)
 grid on
 xlabel('k')
 ylabel('u')
 title('Dane weryfikujace - u')
 
-figure(4)
+subplot(2,1,2)
 plot(y_wer)
 grid on
 xlabel('k')
 ylabel('y')
 title('Dane weryfikujace - y')
+print("dane_weryfikujace","-dpng","-r800")
 
 
-matrix = [u_ucz' y_ucz'];
-writematrix(matrix, "dane.txt");
+% matrix = [u_ucz' y_ucz'];
+% writematrix(matrix, "dane.txt");
 

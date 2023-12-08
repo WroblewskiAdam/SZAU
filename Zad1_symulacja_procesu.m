@@ -98,3 +98,8 @@ grid on
 xlabel('k')
 ylabel('y')
 title('Dane weryfikujace - y')
+
+
+matrix = [u_ucz' y_ucz'];
+writematrix(matrix, "dane.txt");
+

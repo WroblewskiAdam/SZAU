@@ -52,11 +52,39 @@ figure(1)
 hold on
 plot(y_ucz)
 plot(y_mod_ucz_oe)
+xlabel('k')
+ylabel('y')
+legend('dane', 'model', 'Location', 'northwest')
 title('Wyjście modelu dla danych uczących')
+% print("porownanie_uczace","-dpng","-r800")
 
 figure(2)
 hold on
 plot(y_wer)
 plot(y_mod_wer_oe)
+xlabel('k')
+ylabel('y')
+legend('dane', 'model', 'Location', 'southwest')
 title('Wyjście modelu dla danych weryfikuyjących')
+% print("porownanie_weryfikujace","-dpng","-r800")
+
+figure(3)
+scatter(y_mod_ucz_oe, y_ucz)
+ylabel('dane')
+xlabel('model')
+title('Relacja wyjścia modelu z danymi uczącymi ')
+print("relacja_uczace","-dpng","-r800")
+
+
+figure(4)
+scatter(y_mod_wer_oe, y_wer)
+ylabel('dane')
+xlabel('model')
+title('Relacja wyjścia modelu z danymi weryfikującymi ')
+print("relacja_weryfikujace","-dpng","-r800")
+
+
+
+fprintf("E_oe_wer = %f \n", Error_wer_oe);
+fprintf("E_oe_ucz = %f \n", Error_ucz_oe);
 

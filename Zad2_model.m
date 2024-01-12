@@ -4,6 +4,8 @@ close all
 
 % Zlołdowanie modelu
 run("sieci\model.m")
+% run("model_best_zad22.m")
+
 load("dane_uczace.mat")
 load("dane_weryfikujace.mat")
 
@@ -56,7 +58,7 @@ xlabel('k')
 ylabel('y')
 legend('dane', 'model', 'Location', 'northwest')
 title('Wyjście modelu dla danych uczących')
-% print("porownanie_uczace_8_1","-dpng","-r800")
+print("zad2_7_porownanie_uczace_naj","-dpng","-r800")
 
 figure(2)
 hold on
@@ -66,14 +68,14 @@ xlabel('k')
 ylabel('y')
 legend('dane', 'model', 'Location', 'southwest')
 title('Wyjście modelu dla danych weryfikuyjących')
-% print("porowtnanie_weryfikujace_8_1","-dpng","-r800")
+print("zad2_7_porownanie_weryfikujace_naj","-dpng","-r800")
 
 figure(3)
 scatter(y_mod_ucz_oe, y_ucz)
 ylabel('dane')
 xlabel('model')
 title('Relacja wyjścia modelu z danymi uczącymi ')
-% print("relacja_uczace_8_1","-dpng","-r800")
+print("zad2_7_relacja_uczace_naj","-dpng","-r800")
 
 
 figure(4)
@@ -81,7 +83,7 @@ scatter(y_mod_wer_oe, y_wer)
 ylabel('dane')
 xlabel('model')
 title('Relacja wyjścia modelu z danymi weryfikującymi ')
-% print("relacja_weryfikujace_10_4","-dpng","-r800")
+print("zad2_7_relacja_weryfikujace_naj","-dpng","-r800")
 
 % print("blad_uczenie_8_1","-dpng","-r800")
 

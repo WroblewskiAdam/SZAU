@@ -21,6 +21,38 @@ ylabel('y')
 grid on;
 % print("char_stat","-dpng","-r800")
 
+
+
+%% ZAD1- Odpowiedź skokowa
+clear all
+clc
+a1 = -1.413505;
+a2 = 0.462120;
+b1 = 0.016447;
+b2 = 0.012722;
+
+Ts = 100;
+
+u = zeros(1,200);
+u(20:200) = 1;
+x1= zeros(1,200);
+x2= zeros(1,200);
+
+for k=5:Ts
+	x1(k) =  -a1 * x1(k-1) + x2(k-1) + b1 * g1(u(k-4));
+	x2(k) =  -a2 * x1(k-1) + b2 *g1(u(k-4));
+	y(k) = g2(x1(k));
+end
+
+figure(1)
+plot(y)
+title('Odpowiedź skokowa' )
+xlabel('k')
+ylabel('y')
+grid on;
+print("odp_skok","-dpng","-r800")
+
+
 %% ZAD1 - symulacja procesu
 close all
 clc

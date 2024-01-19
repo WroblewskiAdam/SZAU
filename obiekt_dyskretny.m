@@ -30,7 +30,6 @@ for k=start:start+t_sim
 	if lin == 1
 		h1_plin = h1_0;
 		h2_plin = h2_0;
-		% h1(k) = (-alfa1 * sqrt(h1_plin) + Fd + F1) / (2*C1*h1_plin) + ((alfa1*sqrt(h1_plin) - 2*Fd - 2*F1)/(4*C1*h1_plin^2)) * (h1(k-1) - h1_plin) + T * h1(k-1);
 		h1(k) = (-alfa1 * sqrt(h1_plin) + Fd + F1) / (2*C1*h1_plin) + ...
             ((alfa1/(4*C1*h1_plin^(3/2))) - ((Fd+F1)/(2*C1*h1_plin^2))) * (h1(k-1) - h1_plin) + T * h1(k-1);
         h2(k) = (alfa1*sqrt(h1_plin) - alfa2*sqrt(h2_plin)) / (3*C2*h2_plin^2) + ...

@@ -86,7 +86,7 @@ hold on
 stairs(h2, 'r-');
 stairs(h2_zlin, 'b-');
 stairs(h2_roz,'k-.');
-title('2 modele lokalne - funkcje trójkątne')
+title('modele lokalne - funkcje')
 legend('model nieliniowy', 'model zlinearyzowany', 'model rozmyty');
 
 

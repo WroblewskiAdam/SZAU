@@ -15,12 +15,12 @@ function responses = pobranie_modelu_rozmyte(ilosc_obszarow)
         u = [39, 42, 46, 53, 64];
     end
 
-    figure(21)
-    title('Rozmyte odpowiedzi skokowe')
+    % figure(21)
+    % title('Rozmyte odpowiedzi skokowe')
     for i=1:length(u)
         responses{i} = pobranie_modelu(u(i), u_pp(i));
-       hold on
-       stairs(responses{i})
+    %    hold on
+    %    stairs(responses{i})
     end
-    print("Odpowiedzi_SL.png","-dpng","-r400")
+    % print("Odpowiedzi_SL.png","-dpng","-r400")
 end

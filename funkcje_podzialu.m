@@ -1,12 +1,9 @@
 function functions = funkcje_podzialu(liczba_regulatorow, function_type, val_min, val_max)
-    % modyfikacje pozycji aby dostroić dmc rozmytego
+    % modyfikacje pozycji aby dostroić rozmyte
     width = val_max-val_min;
-    % dmc rozmyty
-    % size = [width-10, width-10, width+15, width+50, width];
-    % locration = [val_min+1*(width-15)/(liczba_regulatorow), val_min+2*(width-12)/(liczba_regulatorow+1), val_min+3*(width-5)/(liczba_regulatorow+1), val_min+4*(width-4)/(liczba_regulatorow+1), val_min+5*width/(liczba_regulatorow+1)];
-    % sl
-    size = [width-10, width-2, width-2, width-2, width+10];
-    location = [val_min+1*(width)/(liczba_regulatorow+1), val_min+2*(width)/(liczba_regulatorow+1), val_min+3*(width)/(liczba_regulatorow+1), val_min+4*(width)/(liczba_regulatorow+1), val_min+5*width/(liczba_regulatorow+1)];
+    size = [width, width+2, width+5, width, width];
+    location = [val_min+1*(width-6)/(liczba_regulatorow), val_min+2*(width)/(liczba_regulatorow+1), val_min+3*(width+5)/(liczba_regulatorow+1), val_min+4*(width-5)/(liczba_regulatorow+1), val_min+5*width/(liczba_regulatorow+1)];
+   
     functions = cell(1, liczba_regulatorow);
     for i = 1:1:liczba_regulatorow
         if function_type == "tr"

@@ -1,3 +1,0 @@
-
-fun = @(x1,x2) (x1^2 + x2  - 11)^2 + (x1 + x2^2 - 7)^2;
-x = particleswarm(fun, 3);

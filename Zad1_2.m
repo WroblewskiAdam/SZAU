@@ -33,5 +33,5 @@ for i = 1:10
 	end
 	disp(x2)
 	disp(y2)
-    values2 = [values2; [y,x]];
+    values2 = [values2; [y2,x2]];
 end

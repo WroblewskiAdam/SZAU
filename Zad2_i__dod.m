@@ -18,32 +18,34 @@ Ts = length(y_zad);
 % paramtery optymalizatora
 options = optimoptions('particleswarm');
 options.Display = 'iter';
-options.MaxIterations = 10;
-options.SwarmSize = 100;
-options.MaxStallIterations = 1;
-options.InitialSwarmSpan = 3000;
+options.MaxIterations = 100;
+options.SwarmSize = 50;
 
-values = [];
-for i=1:30
-    x = particleswarm(@(X) PID(X), 3, [0,0.001,0.001], [100,100,10], options);
-    values = [values; x];
-end
+% values = [];
+% for i=1:30
+%     x = particleswarm(@(X) PID(X), 3, [0,0.001,0.001], [100,100,10], options);
+%     values = [values; x];
+% end
+% 
+% best_E = 1000;
+% best_vals = [0,0,0];
+% for i=1:30
+%     [E, y, u] = PID(values(i,:));
+%     if E < best_E
+%         best_E = E;
+%         best_vals = values(i,:);
+%     end
+% end
 
-best_E = 1000;
-best_vals = [0,0,0];
-for i=1:30
-    [E, y, u] = PID(values(i,:));
-    if E < best_E
-        best_E = E;
-        best_vals = values(i,:);
-    end
-end
+best_vals = [0.015, 5, 0.9];
 [E, y, u] = PID(best_vals);
 disp(E);
 figure(1)
 hold on; grid on;
 plot(y); plot(y_zad);
 xlim([0 Ts]);
+print("zdj/PID_ekspert",'-dpng','-r800');
+
 
 %% zadanie dodatkowe
 % paramtery_proj2 = [-0.9, 9, 2.25];
@@ -55,24 +57,26 @@ options.SwarmSize = 100;
 options.MaxStallIterations = 1;
 options.InitialSwarmSpan = 3000;
 
-values_NPL = [];
-for i=1:30
-    x = particleswarm(@(X) NPL(X), 3, [1,1,0.0001], [100,100,1000], options);
-    values_NPL = [values_NPL; x];
-end
-
-best_E_NPL = 1000;
-best_vals_NPL = [0,0,0];
-for i=1:30
-    [E, y, u] = NPL(values(i,:));
-    if E < best_E_NPL
-        best_E_NPL = E;
-        best_vals_NPL = values(i,:);
-    end
-end
+% values_NPL = [];
+% for i=1:30
+%     x = particleswarm(@(X) NPL(X), 3, [1,1,0.0001], [100,100,1000], options);
+%     values_NPL = [values_NPL; x];
+% end
+% 
+% best_E_NPL = 1000;
+% best_vals_NPL = [0,0,0];
+% for i=1:30
+%     [E, y, u] = NPL(values(i,:));
+%     if E < best_E_NPL
+%         best_E_NPL = E;
+%         best_vals_NPL = values(i,:);
+%     end
+% end
+best_vals_NPL = [20, 10, 10];
 [E, y, u] = NPL(best_vals_NPL);
 disp(E);
 figure(2)
 hold on; grid on;
 plot(y); plot(y_zad);
 xlim([0 Ts]);
+print("zdj/NPL_ekspert",'-dpng','-r800');

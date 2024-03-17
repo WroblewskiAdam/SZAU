@@ -5,10 +5,6 @@ load("dane_uczace.mat")
 load("dane_weryfikujace.mat")
 
 
-% alg uczenia
-trainf = 'trainlm';  % Levenberg-Marquardt
-% trainf = 'trainscg';  % Scaled Conjugate Gradient
-
 X_UCZ = zeros(4, length(u_ucz));
 Y_UCZ = zeros(1,length(y_ucz));
 
@@ -22,13 +18,11 @@ Y_UCZ(1:end) = y_ucz(1:end);
 
 K = 8; % liczba neuronów ukrytych
 
-alguczenia='trainlm';%alg. Levenberga-Marquardta
-%alguczenia='traincgp';%alg. gradientów sprzężonych Poljaka-Polaka-Ribiery
+% alguczenia='trainlm';%alg. Levenberga-Marquardta
+alguczenia='traincgp';%alg. gradientów sprzężonych Poljaka-Polaka-Ribiery
 
 sn=feedforwardnet(K,alguczenia);
 
-%sn.performFcn ='mae';%suma modułów błędów/liczba próbek
-%sn.performFcn ='mse';%suma kwadratów błędów/liczba próbek
 sn.performFcn ='sse';
 sn.trainParam.show = 10;
 sn.trainParam.showCommandLine = 1;
@@ -78,7 +72,6 @@ for k = 6:Ts
 end
 
 
-
 figure(1)
 hold on
 plot(y_ucz)
@@ -87,7 +80,7 @@ xlabel('k')
 ylabel('y')
 legend('dane', 'model', 'Location', 'northwest')
 title('Wyjście modelu OE dla danych uczących')
-print("zad3_porownanie_uczace_OE_2","-dpng","-r800")
+% print("zad3_porownanie_uczace_OE_2alg_2","-dpng","-r800")
 
 figure(2)
 hold on
@@ -97,14 +90,14 @@ xlabel('k')
 ylabel('y')
 legend('dane', 'model', 'Location', 'southwest')
 title('Wyjście modelu OE dla danych weryfikuyjących')
-print("zad3_porownanie_weryfikujace_OE_2","-dpng","-r800")
+% print("zad3_porownanie_weryfikujace_OE_2alg_2","-dpng","-r800")
 
 figure(3)
 scatter(y_mod_ucz_oe, y_ucz)
 ylabel('dane')
 xlabel('model')
 title('Relacja wyjścia modelu OE z danymi uczącymi ')
-print("zad3_relacja_uczace_OE_2","-dpng","-r800")
+% print("zad3_relacja_uczace_OE_2alg_2","-dpng","-r800")
 
 
 figure(4)
@@ -112,7 +105,7 @@ scatter(y_mod_wer_oe, y_wer)
 ylabel('dane')
 xlabel('model')
 title('Relacja wyjścia modelu OE z danymi weryfikującymi ')
-print("zad3_relacja_weryfikujace_OE_2","-dpng","-r800")
+% print("zad3_relacja_weryfikujace_OE_2alg_2","-dpng","-r800")
 
 
 figure(5)
@@ -123,7 +116,7 @@ xlabel('k')
 ylabel('y')
 legend('dane', 'model', 'Location', 'northwest')
 title('Wyjście modelu ARX dla danych uczących')
-print("zad3_porownanie_uczace_ARX_2","-dpng","-r800")
+% print("zad3_porownanie_uczace_ARX_2alg_2","-dpng","-r800")
 
 figure(6)
 hold on
@@ -133,14 +126,14 @@ xlabel('k')
 ylabel('y')
 legend('dane', 'model', 'Location', 'southwest')
 title('Wyjście modelu ARX dla danych weryfikuyjących')
-print("zad3_porownanie_weryfikujace_ARX_2","-dpng","-r800")
+% print("zad3_porownanie_weryfikujace_ARX_2alg_2","-dpng","-r800")
 
 figure(7)
 scatter(y_mod_ucz_arx, y_ucz)
 ylabel('dane')
 xlabel('model')
 title('Relacja wyjścia modelu ARX z danymi uczącymi ')
-print("zad3_relacja_uczace_ARX_2","-dpng","-r800")
+% print("zad3_relacja_uczace_ARX_2alg_2","-dpng","-r800")
 
 
 figure(8)
@@ -148,7 +141,7 @@ scatter(y_mod_wer_arx, y_wer)
 ylabel('dane')
 xlabel('model')
 title('Relacja wyjścia modelu ARX z danymi weryfikującymi ')
-print("zad3_relacja_weryfikujace_ARX_2","-dpng","-r800")
+% print("zad3_relacja_weryfikujace_ARX_2alg_2","-dpng","-r800")
 
 
 Error_ucz_arx = 0;

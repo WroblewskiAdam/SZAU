@@ -1,4 +1,5 @@
 %% ZAD1- Charakterystyka statyczna 
+close all
 clear all
 clc
 a1 = -1.413505;
@@ -44,17 +45,16 @@ for k=5:Ts
 	y(k) = g2(x1(k));
 end
 
-figure(1)
+figure(2)
 plot(y)
 title('Odpowiedź skokowa' )
 xlabel('k')
 ylabel('y')
 grid on;
-print("odp_skok","-dpng","-r800")
+% print("odp_skok","-dpng","-r800")
 
 
 %% ZAD1 - symulacja procesu
-close all
 clc
 clear
 
@@ -103,7 +103,7 @@ clear
 
 load("dane_uczace.mat")
 load("dane_weryfikujace.mat")
-figure(1)
+figure(3)
 subplot(2,1,1)
 plot(u_ucz)
 grid on
@@ -117,10 +117,10 @@ grid on
 xlabel('k')
 ylabel('y')
 title('Dane uczące - y')
-print("dane_uczace","-dpng","-r800")
+% print("dane_uczace","-dpng","-r800")
 
 
-figure(2)
+figure(4)
 subplot(2,1,1)
 plot(u_wer)
 grid on
@@ -134,7 +134,7 @@ grid on
 xlabel('k')
 ylabel('y')
 title('Dane weryfikujace - y')
-print("dane_weryfikujace","-dpng","-r800")
+% print("dane_weryfikujace","-dpng","-r800")
 
 
 % matrix = [u_ucz' y_ucz'];
